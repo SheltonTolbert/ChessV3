@@ -38,7 +38,7 @@ public class PieceCollider : MonoBehaviour
         {
             // Do nothing if the collider is not a game piece
         }
-        }
+    }
 
     private void OnTriggerExit(Collider other) {
         collidingPiece = -1;
