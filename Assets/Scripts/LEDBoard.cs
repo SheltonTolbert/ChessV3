@@ -37,25 +37,34 @@ public class LEDBoard : MonoBehaviour
     }
 
     private void buildBoard() {
-
+        int i = 0;
         for (float z = 0.0f; z < boardHeight; z += (boardHeight / 8.0f) + margin)
         {
-            for (float x = 0.0f; x < boardHeight; x += (boardHeight / 8.0f) + margin )
+            for (float x = 0.0f; x < boardHeight; x += (boardHeight / 8.0f) + margin)
             {
-                buildSquare(x, z);
-            } }
+                GameObject empty = new GameObject(i.ToString());
+                empty.transform.parent = gameObject.transform;
+                buildSquare(x, z, empty);
+                i++;
+            }
+        }
 
     }
 
-    private void buildSquare(float originX, float originZ) {
-
+    private void buildSquare(float originX, float originZ, GameObject parent) {
+        int zIndex = 0;
         for (float z = 0.0f; z < squareHeight; z += squareHeight / 16.0f)
         {
+            int xIndex = 0;
             for (float x = 0.0f; x < squareWidth; x += squareWidth / 16.0f)
             {
                 GameObject sphere = GameObject.CreatePrimitive(PrimitiveType.Sphere);
                 sphere.transform.position = new Vector3(x + originX, 1.5f, z + originZ);
+                sphere.transform.parent = parent.transform;
+                sphere.name = ( "[" +  zIndex + "," + xIndex + "]");
+                xIndex++;
             }
+            zIndex++;
         }
     }
 
