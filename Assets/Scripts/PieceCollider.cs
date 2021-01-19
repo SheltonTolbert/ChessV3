@@ -7,9 +7,8 @@ using UnityEngine;
 public class PieceCollider : MonoBehaviour
 {
 
-    
-    BoardManager boardManager;
 
+    BoardManager boardManager;
     public int collidingPiece = -1;
     
     // Start is called before the first frame update
@@ -31,12 +30,15 @@ public class PieceCollider : MonoBehaviour
         //enter collision code here.
         try
         {
+            //print(piece.name);
             collidingPiece = boardManager.pieceDictionary[piece.name];
+            //print("colliding piece " + collidingPiece);
             boardManager.updateBoardState();
         }
         catch(System.Exception e)
         {
             // Do nothing if the collider is not a game piece
+            print(e);
         }
     }
 

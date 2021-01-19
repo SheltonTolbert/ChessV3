@@ -14,9 +14,9 @@ public class BoardManager : MonoBehaviour
     // Start is called before the first frame update
     void Start()
     {
+        boardState = new int[64];
         initPieceDictionary();
         updateBoardState();
-
     }
 
     // Update is called once per frame
@@ -26,19 +26,32 @@ public class BoardManager : MonoBehaviour
     }
 
     public void updateBoardState() {
+        int i = 0;
         foreach (Transform child in transform)
         {
             string location = child.gameObject.name;
             int piece = child.GetComponent<PieceCollider>().collidingPiece;
             if (piece > 0)
             {
-                Debug.Log(pieceNumToString(piece) + " to " + location);
+                //Debug.Log(pieceNumToString(piece) + " to " + location + " id: " + piece);
+                boardState[i] = piece;
             }
+            else {
+                boardState[i] = -1;
+            }
+            i++;
         }
+        
+    }
+    
+    // Overloaded UpdateBoard state for updating one space at a time
+    public void updateBoardState(string piece, bool leaving)
+    {
+        //Debug.Log(piece);
     }
 
     // Match piece prefab names to an integer - makes working with the prefabs in the editor much easire. 
-    void initPieceDictionary() {
+    private void initPieceDictionary() {
         pieceDictionary.Add("BishopLight", 1);
         pieceDictionary.Add("BishopDark", 2);
         pieceDictionary.Add("KingDark", 3);
